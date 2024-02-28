@@ -2,12 +2,9 @@
 import fs from "fs";
 import https from "https";
 import path from "path";
-import { URL } from "url";
+import { URL } from "urlg";
 
-function downloadFile(
-	url: string | https.RequestOptions | URL,
-	dest: fs.PathLike
-) {
+function downloadFile(url: string | https.RequestOptions | URL, dest: any) {
 	return new Promise((resolve, reject) => {
 		const file = fs.createWriteStream(dest);
 		https
