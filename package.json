@@ -12,6 +12,7 @@
   },
   "scripts": {
     "lint": "tsc",
+    "dev": "tsup src/index.ts --watch --format cjs --out-dir dist",
     "build": "tsup src/index.ts --minify --format cjs --out-dir dist",
     "ci": "npm run lint && npm run build",
     "release": "npm run ci && changeset publish"
