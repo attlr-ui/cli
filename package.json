@@ -1,5 +1,5 @@
 {
-  "name": "attlr-cli",
+  "name": "attlr",
   "version": "1.0.22",
   "description": "React Native UI Components by Matthew Msingathi (Coded Design)",
   "main": "src/index.ts",
