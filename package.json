@@ -3,6 +3,7 @@
   "version": "1.0.22",
   "description": "React Native UI Components by Matthew Msingathi (Coded Design)",
   "main": "src/index.ts",
+  "type": "commonjs",
   "private": false,
   "files": [
     "src/**/*"
@@ -12,7 +13,7 @@
   },
   "scripts": {
     "lint": "tsc",
-    "dev": "tsup src/index.ts --watch --format cjs --out-dir dist",
+    "dev": "tsup src/index.ts src/init.ts  --watch --format cjs --out-dir dist",
     "build": "tsup src/index.ts --minify --format cjs --out-dir dist",
     "ci": "npm run lint && npm run build",
     "release": "npm run ci && changeset publish"
@@ -27,8 +28,17 @@
   "license": "MIT",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@types/clui": "^0.3.4",
+    "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.21",
     "tsup": "^8.0.2",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "clui": "^0.3.6",
+    "inquirer": "^8.2.6",
+    "minimist": "^1.2.8",
+    "terminal-link": "^3.0.0"
   }
 }
