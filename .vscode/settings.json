@@ -1,0 +1,9 @@
+{
+	"cSpell.words": ["tsup"],
+	"[typescript]": {
+		"files.eol": "\r\n",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"typescript.preferences.quoteStyle": "double"
+	},
+	"javascript.format.semicolons": "insert"
+}
