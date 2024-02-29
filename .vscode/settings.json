@@ -1,6 +1,10 @@
 {
-	"cSpell.words": ["clui", "tsup"],
+	"cSpell.words": ["addcomponent", "clui", "tsup"],
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"files.autoSave": "onFocusChange",
+	"git.autorefresh": true,
+	"git.autofetch": "all",
+	"git.enableSmartCommit": true
 }
