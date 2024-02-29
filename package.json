@@ -43,7 +43,6 @@
     "clui": "^0.3.6",
     "configstore": "^3.1.5",
     "inquirer": "^8.2.6",
-    "minimist": "^1.2.8",
-    "terminal-link": "^3.0.0"
+    "minimist": "^1.2.8"
   }
 }
