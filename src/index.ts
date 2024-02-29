@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { fetchComponents } from "./helpers";
-import { addComponent } from "./addcomponent";
 import minimist from "minimist";
 import { doInitialization } from "./init";
+import { fetchComponents } from "./helpers";
+import { addComponent } from "./addcomponent";
 
 const args = minimist(process.argv.slice(2), {
   alias: { h: "help", v: "version", c: "clean" },
@@ -19,19 +19,8 @@ switch (args._[0]) {
     doInitialization();
     break;
   default:
-    console.log("Usage: npx attlr <command> <componentName>");
+    console.log(
+      "Usage: npx attlr <command> <componentName> \n\nCommands: \n\nadd: Add a new component \nupdate: Update the components list \ninit: Initialize the config file \n\nOptions: \n\n-c, --clean: Clear the components list cache \n-h, --help: Display help \n-v, --version: Display version \n\n",
+    );
     break;
 }
-
-// const configFile = readConfigFile() as ConfigFile;
-
-// console.log(configFile);
-// fetchComponents(); //Update components list
-// addComponent("AButton".toLowerCase());
-// if (process.argv.length < 4 || process.argv[2] !== "add") {
-//   console.log("Usage: npx attlr-ui add <componentName>");
-// } else {
-//   addComponent(process.argv[3]);
-// }
-
-// fetchComponents(); //Update components list

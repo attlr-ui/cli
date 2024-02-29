@@ -1,10 +1,9 @@
-import https from "https";
 import fs from "fs";
-import chalk from "chalk";
-import Configstore from "configstore";
-// import terminalLink from "terminal-link";
 import clui from "clui";
 import path from "path";
+import chalk from "chalk";
+import https from "https";
+import Configstore from "configstore";
 
 const CONFIG_FILE_NAME = "attlr.config.json";
 const COMPONENTS_LIST_URL =
@@ -29,7 +28,6 @@ function downloadFile(
   url: string | https.RequestOptions | URL,
   dest: fs.PathLike,
 ) {
-  console.log(url, dest);
   return new Promise((resolve, reject) => {
     fs.mkdirSync(
       dest.toString().includes(".")
@@ -107,7 +105,7 @@ function fetchComponents(clearCache = false) {
         });
 
         response.on("end", () => {
-          console.log(new Configstore("components", JSON.parse(data)).all);
+          new Configstore("components", JSON.parse(data));
         });
       },
     );

@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import chalk from "chalk";
 import fs from "fs";
-import inquirer from "inquirer";
 import path from "path";
-import terminalLink from "terminal-link";
+import chalk from "chalk";
+import inquirer from "inquirer";
 import {
   CONFIG_FILE_NAME,
   checkIfConfigExist,
@@ -88,10 +87,7 @@ function doInitialization() {
         //   );
         console.log(
           chalk.gray(
-            `Visit the documentation for more information ${terminalLink(
-              "",
-              "https://github.com/attlr-ui/cli/tree/main#readme",
-            )}`,
+            `Visit the documentation for more information https://github.com/attlr-ui/cli/tree/main#readme`,
           ),
         );
       } catch (error) {
@@ -101,11 +97,7 @@ function doInitialization() {
     .catch((error) => {
       console.log(
         chalk.red(
-          `Error: ${error.message}. If the error persist please reach out `,
-          terminalLink(
-            "here",
-            "https://github.com/attlr-ui/cli/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=%5BBUG%5D%3A+",
-          ),
+          `Error: ${error.message}. If the error persist please reach out https://github.com/attlr-ui/cli/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=%5BBUG%5D%3A+`,
         ),
       );
     });
