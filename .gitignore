@@ -2,3 +2,5 @@ node_modules/
 dist/
 AttlrUi/
 attlr.config.json
+nevermind/
+.components/

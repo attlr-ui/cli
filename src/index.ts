@@ -1,30 +1,9 @@
 #!/usr/bin/env node
-// import minimist from "minimist";
-// import { doInitialization } from "./init";
-// import { fetchComponents } from "./helpers";
-// import { addComponent } from "./addcomponent";
+
+import { doInitialization } from "./init";
+import { addComponent } from "./addcomponent";
 import chalk from "chalk";
 
-// const args = minimist(process.argv.slice(2), {
-//   alias: { h: "help", v: "version", c: "clean" },
-// });
-
-// switch (args._[0]) {
-//   case "add":
-//     addComponent(args._[1]);
-//     break;
-//   case "update":
-//     fetchComponents(args.c);
-//     break;
-//   case "init":
-//     doInitialization();
-//     break;
-//   default:
-//     console.log(
-//       "Usage: npx attlr <command> <componentName> \n\nCommands: \n\nadd: Add a new component \nupdate: Update the components list \ninit: Initialize the config file \n\nOptions: \n\n-c, --clean: Clear the components list cache \n-h, --help: Display help \n-v, --version: Display version \n\n",
-//     );
-//     break;
-// }
 import { Command } from "commander";
 const program = new Command();
 
@@ -34,12 +13,21 @@ program
   .usage("<command> [options]")
   .helpOption("-h, --help", "Display help");
 
+//---------------------------------------------------------------------------------------
+//                              ADD COMPONENT
+//---------------------------------------------------------------------------------------
 program
-  .command("add <componentName>")
+  .command("add")
   .aliases(["a", "i", "install"])
+  .argument("<componentName>", "The name of the component to add")
+  .option(
+    "-o, --overwrite, --o",
+    "Overwrite the component if it already exists",
+    false,
+  )
   .description("Add a new component")
-  .action((args) => {
-    console.log(`Adding ${args} component`);
+  .action((args, { overwrite }) => {
+    addComponent(args, overwrite);
   })
   .exitOverride((error) => {
     console.log(chalk.red(error.message));
@@ -61,8 +49,8 @@ program
   .command("init")
   .aliases(["create", "setup"])
   .description("Initialize the config file")
-  .action((args) => {
-    console.log("Initializing config file");
+  .action(() => {
+    doInitialization();
   });
 
-program.parse(process.argv);
+program.parse();
