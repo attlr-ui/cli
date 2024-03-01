@@ -46,7 +46,7 @@
     "chalk": "^4.1.2",
     "clui": "^0.3.6",
     "commander": "^12.0.0",
-    "configstore": "^3.1.5",
+    "configstore": "^6.0.0",
     "inquirer": "^8.2.6"
   },
   "packageManager": "pnpm@8.15.4",
