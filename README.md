@@ -1,6 +1,8 @@
 # Attlr CLI
 
 [![Publish to NPM](https://github.com/attlr-ui/cli/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/attlr-ui/cli/actions/workflows/npm-publish.yml)
+[![CodeQL](https://github.com/attlr-ui/cli/actions/workflows/codeql.yml/badge.svg)](https://github.com/attlr-ui/cli/actions/workflows/codeql.yml)
+[![Lint](https://github.com/attlr-ui/cli/actions/workflows/main.yml/badge.svg)](https://github.com/attlr-ui/cli/actions/workflows/main.yml)
 
 ## Installation
 
