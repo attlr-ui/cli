@@ -2,7 +2,7 @@ src
 .changeset
 .github
 .gitignore
-*-lock.json
 *.log
 tsconfig.json
 .prettierrc
+pnpm-lock.yaml
