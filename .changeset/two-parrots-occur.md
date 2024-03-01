@@ -1,0 +1,5 @@
+---
+"@attlr/cli": patch
+---
+
+hd
