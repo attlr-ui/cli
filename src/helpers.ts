@@ -4,12 +4,7 @@ import path from "path";
 import chalk from "chalk";
 import https from "https";
 import Configstore from "configstore";
-
-const CONFIG_FILE_NAME = "attlr.config.json";
-const COMPONENTS_LIST_URL =
-  "https://raw.githubusercontent.com/attlr-ui/ui-components/main/assets/components/{version}.json";
-const ISSUES_URL =
-  "https://github.com/attlr-ui/cli/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=%5BBUG%5D%3A+";
+import { COMPONENTS_LIST_URL, CONFIG_FILE_NAME } from "./urls";
 
 const Spinner = clui.Spinner;
 
@@ -67,6 +62,16 @@ function readConfigFile() {
   process.exit(1);
 }
 
+function readJsonFile<T>(file_path: string): T {
+  try {
+    const configFile = fs.readFileSync(file_path, "utf8");
+    return JSON.parse(configFile) as T;
+  } catch (error) {
+    console.log(chalk.red(`Error: ${(error as { message: string }).message}`));
+    process.exit(1);
+  }
+}
+
 function checkIfConfigExist() {
   if (fs.existsSync(CONFIG_FILE_NAME)) {
     console.log(
@@ -78,7 +83,7 @@ function checkIfConfigExist() {
   }
 }
 
-function fetchComponents(clearCache = false) {
+function fetchComponentsList(clearCache = false) {
   const configJson = readConfigFile();
 
   if (!configJson.version) {
@@ -94,6 +99,8 @@ function fetchComponents(clearCache = false) {
     new Configstore("components").clear();
   }
 
+  const packageJson = readJsonFile<{ name: string }>("package.json");
+
   try {
     https.get(
       COMPONENTS_LIST_URL.replace("{version}", configJson.version),
@@ -105,7 +112,7 @@ function fetchComponents(clearCache = false) {
         });
 
         response.on("end", () => {
-          new Configstore("components", JSON.parse(data));
+          new Configstore(`components_${packageJson.name}`, JSON.parse(data));
         });
       },
     );
@@ -122,18 +129,10 @@ function fetchComponents(clearCache = false) {
   }
 }
 
-type ConfigFile = {
-  directory: string;
-  utilsDirectory: string;
-  componentAlias: string;
-  utilsAlias: string;
-};
-
 export {
   downloadFile,
   readConfigFile,
   CONFIG_FILE_NAME,
-  ConfigFile,
   checkIfConfigExist,
-  fetchComponents,
+  fetchComponentsList,
 };
