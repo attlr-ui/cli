@@ -1,5 +1,7 @@
 # Attlr CLI
 
+[![Publish to NPM](https://github.com/attlr-ui/cli/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/attlr-ui/cli/actions/workflows/npm-publish.yml)
+
 ## Installation
 
 ```bash
