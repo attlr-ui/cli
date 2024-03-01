@@ -1,5 +1,10 @@
 {
-	"cSpell.words": ["addcomponent", "clui", "tsup"],
+	"cSpell.words": [
+		"addcomponent",
+		"clui",
+		"Msingathi",
+		"tsup"
+	],
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
