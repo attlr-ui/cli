@@ -1,14 +1,19 @@
 #!/usr/bin/env node
-import Configstore from "configstore";
+import {
+  VERSION,
+  ISSUES_URL,
+  COMPONENTS_ROOT_URL,
+  COMPONENTS_LIST_URL,
+} from "./urls";
+
 import fs from "fs";
-import inquirer from "inquirer";
 import path from "path";
+import chalk from "chalk";
+import https from "node:https";
+import inquirer from "inquirer";
+import { exec } from "child_process";
 import { readConfigFile } from "./helpers";
 import { ComponentList, ConfigFile } from "./types";
-import { COMPONENTS_LIST_URL, COMPONENTS_ROOT_URL, VERSION } from "./urls";
-import https from "node:https";
-import chalk from "chalk";
-import { json } from "stream/consumers";
 
 /**
  * Add the component to the project
@@ -38,14 +43,17 @@ const addComponent = (componentName: string, overwrite = false) => {
       ])
       .then((answers) => {
         if (answers.overwrite) {
-          console.log("Downloading & overwriting component");
+          process.stdout.write(
+            chalk.yellow(`Overwriting component ${componentName} \n`),
+          );
+          downloadComponent(componentName, configFile.directory);
+          return;
         }
+        return;
       });
-
     return;
   }
   downloadComponent(componentName, configFile.directory);
-  console.log("Downloading component");
 };
 
 export { addComponent };
@@ -63,11 +71,18 @@ function downloadComponent(componentName: string, directory: string) {
         // 4. Check if the component exists in the list
         const componentList = JSON.parse(data) as ComponentList;
         if (!Object.keys(componentList).includes(componentName)) {
-          console.log(chalk.red(`Error: Component ${componentName} not found`));
+          process.stdout.write(
+            chalk.red(`Error: Component ${componentName} not found \n`),
+          );
           process.exit(1);
         }
 
         // 5. Download the component
+        process.stdout.write(
+          chalk.yellow(
+            `Downloading component ${componentName} to ${directory} \n`,
+          ),
+        );
         const destination = path.join(directory, componentName, "index.tsx");
         const destinationFolder = path.join(directory, componentName);
 
@@ -79,30 +94,50 @@ function downloadComponent(componentName: string, directory: string) {
         https.get(
           `${COMPONENTS_ROOT_URL}${componentName}/index.tsx`,
           (response) => {
-            // let data = "";
-            // response.on("data", (chunk) => {
-            //   data += chunk;
-            // });
-
-            // response.on("end", () => {
-            //   // 6. Add the component to the project
-            //   file.pipe(response);
-            // });
             response.pipe(file);
+            file.on("finish", () => {
+              file.close();
+
+              const toInstall =
+                componentList[componentName].dependencies.join(" ");
+
+              if (toInstall.length > 3) {
+                // Install the component dependencies
+                process.stdout.write(
+                  chalk.yellow(
+                    `Installing dependencies for ${componentName}\n`,
+                  ),
+                );
+                exec(`npm install ${toInstall}`, (error) => {
+                  if (error) {
+                    process.stdout.write(
+                      chalk.red(
+                        `Error: ${error.message}. If the error persist please reach out on GitHub: ${ISSUES_URL}\n`,
+                      ),
+                    );
+                    process.exit(1);
+                  }
+
+                  process.stdout.write(
+                    chalk.green(
+                      `Component ${componentName} downloaded successfully\n`,
+                    ),
+                  );
+                  process.exit(0);
+                });
+              }
+            });
           },
         );
       });
     });
   } catch (error) {
-    console.log(
+    process.stdout.write(
       chalk.red(
         `Error: ${
           (error as { message: string }).message
-        }. If the error persist please reach out `,
-        // terminalLink("here", ISSUES_URL),
+        }. If the error persist please reach out on GitHub: ${ISSUES_URL} \n`,
       ),
     );
   }
-
-  // 6. Add the component to the project
 }

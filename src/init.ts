@@ -76,17 +76,17 @@ function doInitialization() {
         // Fetch the components list from the repository and save it to the config store
         fetchComponentsList();
 
-        console.log(
+        process.stdout.write(
           chalk.green(
             `Config file created successfully. \n\n You can now run 'npx attlr add <componentName>' to add a new component. \n`,
           ),
         );
-        //   console.log(
+        //   process.stdout.write(
         //     chalk.gray(
         //       "You can also run 'npx attlr add:utils <utilName>' to add a new util function. \n",
         //     ),
         //   );
-        console.log(
+        process.stdout.write(
           chalk.gray(
             `Visit the documentation for more information https://github.com/attlr-ui/cli/tree/main#readme`,
           ),
@@ -96,7 +96,7 @@ function doInitialization() {
       }
     })
     .catch((error) => {
-      console.log(
+      process.stdout.write(
         chalk.red(
           `Error: ${error.message}. If the error persist please reach out https://github.com/attlr-ui/cli/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=%5BBUG%5D%3A+`,
         ),

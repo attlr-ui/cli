@@ -30,7 +30,7 @@ program
     addComponent(args, overwrite);
   })
   .exitOverride((error) => {
-    console.log(chalk.red(error.message));
+    process.stdout.write(chalk.red(error.message));
   });
 
 program
@@ -39,9 +39,9 @@ program
   .description("Update the components list")
   .option("-c, --clean", "Clear the components list cache")
   .action((args) => {
-    console.log("Updating components list");
+    process.stdout.write("Updating components list");
     if (args.clean) {
-      console.log("Clearing cache");
+      process.stdout.write("Clearing cache");
     }
   });
 

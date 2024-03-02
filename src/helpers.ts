@@ -54,7 +54,7 @@ function readConfigFile() {
     const configFile = fs.readFileSync(CONFIG_FILE_NAME, "utf8");
     return JSON.parse(configFile);
   }
-  console.log(
+  process.stdout.write(
     chalk.red(
       `Error: Config file not found. Run 'npx attlr init' to create a config file.`,
     ),
@@ -67,14 +67,16 @@ function readJsonFile<T>(file_path: string): T {
     const configFile = fs.readFileSync(file_path, "utf8");
     return JSON.parse(configFile) as T;
   } catch (error) {
-    console.log(chalk.red(`Error: ${(error as { message: string }).message}`));
+    process.stdout.write(
+      chalk.red(`Error: ${(error as { message: string }).message}`),
+    );
     process.exit(1);
   }
 }
 
 function checkIfConfigExist() {
   if (fs.existsSync(CONFIG_FILE_NAME)) {
-    console.log(
+    process.stdout.write(
       chalk.red(
         `Config file already exists. If you want to overwrite it, please delete the existing file and run 'npx attlr init' again.`,
       ),
@@ -87,7 +89,7 @@ function fetchComponentsList(clearCache = false) {
   const configJson = readConfigFile();
 
   if (!configJson.version) {
-    console.log(
+    process.stdout.write(
       chalk.red(
         `Error: Version not found in the config file. Please add a version to the config file ${CONFIG_FILE_NAME}.`,
       ),
@@ -117,7 +119,7 @@ function fetchComponentsList(clearCache = false) {
       },
     );
   } catch (error) {
-    console.log(
+    process.stdout.write(
       chalk.red(
         `Error: ${
           (error as { message: string }).message
