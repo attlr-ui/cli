@@ -79,9 +79,7 @@ function downloadComponent(componentName: string, directory: string) {
 
         // 5. Download the component
         process.stdout.write(
-          chalk.yellow(
-            `Downloading component ${componentName} to ${directory} \n`,
-          ),
+          chalk.yellow(`Downloading component ${componentName} \n`),
         );
         const destination = path.join(directory, componentName, "index.tsx");
         const destinationFolder = path.join(directory, componentName);
@@ -126,6 +124,12 @@ function downloadComponent(componentName: string, directory: string) {
                   process.exit(0);
                 });
               }
+              process.stdout.write(
+                chalk.green(
+                  `Component ${componentName} downloaded successfully\n`,
+                ),
+              );
+              process.exit(0);
             });
           },
         );
