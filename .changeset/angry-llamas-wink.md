@@ -2,4 +2,4 @@
 "@attlr/cli": patch
 ---
 
-Clean upn unused pakages and code, fix logging
+Clean upn unused packages and code, fix logging issues
