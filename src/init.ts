@@ -4,11 +4,7 @@ import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 import inquirer from "inquirer";
-import {
-  CONFIG_FILE_NAME,
-  checkIfConfigExist,
-  fetchComponentsList,
-} from "./helpers";
+import { CONFIG_FILE_NAME, checkIfConfigExist } from "./helpers";
 import { VERSION } from "./urls";
 
 function doInitialization() {
@@ -72,9 +68,6 @@ function doInitialization() {
             version: VERSION,
           }),
         );
-
-        // Fetch the components list from the repository and save it to the config store
-        fetchComponentsList();
 
         process.stdout.write(
           chalk.green(
