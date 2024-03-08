@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 import inquirer from "inquirer";
+const { execSync } = require("child_process");
 import { CONFIG_FILE_NAME, checkIfConfigExist } from "./helpers";
 import { VERSION } from "./urls";
 
@@ -74,11 +75,25 @@ function doInitialization() {
             `Config file created successfully. \n\n You can now run 'npx attlr add <componentName>' to add a new component. \n`,
           ),
         );
+
+        process.stdout.write(
+          chalk.blue(`Adding lucide-react-native to your project\n\n`),
+        );
+
+        execSync("npx expo install lucide-react-native", { stdio: "inherit" });
+
+        process.stdout.write(
+          chalk.green(
+            `\n\nYou can now run 'npx attlr add <componentName>' to add a new component. \n`,
+          ),
+        );
+
         //   process.stdout.write(
         //     chalk.gray(
         //       "You can also run 'npx attlr add:utils <utilName>' to add a new util function. \n",
         //     ),
         //   );
+
         process.stdout.write(
           chalk.gray(
             `Visit the documentation for more information https://github.com/attlr-ui/cli/tree/main#readme`,
