@@ -75,7 +75,6 @@ function doInitialization() {
             `Config file created successfully. \n\n You can now run 'npx attlr add <componentName>' to add a new component. \n`,
           ),
         );
-
         inquirer
           .prompt([
             {
