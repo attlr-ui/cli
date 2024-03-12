@@ -37,7 +37,6 @@ jobs:
 
       - name: Publish to NPM
         run: npm publish --access public --tag alpha
-
         env:
           GITHUB_TOKEN: ${{ vars.A_GITHUB_TOKEN }}
           GIT_TOKEN: ${{vars.GITHUBB_TOKEN}}
