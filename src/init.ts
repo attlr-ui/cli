@@ -76,29 +76,51 @@ function doInitialization() {
           ),
         );
 
-        process.stdout.write(
-          chalk.blue(`Adding lucide-react-native to your project\n\n`),
-        );
+        inquirer
+          .prompt([
+            {
+              type: "confirm",
+              name: "installLucide",
+              message:
+                "Do you want to install lucide-react-native to your project now?",
+            },
+          ])
+          .then((answers) => {
+            if (!answers.installLucide) {
+              process.stdout.write(
+                chalk.gray(
+                  `You can install lucide-react-native by running 'npx expo install lucide-react-native' \n`,
+                ),
+              );
+              return;
+            }
 
-        execSync("npx expo install lucide-react-native", { stdio: "inherit" });
+            process.stdout.write(
+              chalk.blue(`Adding lucide-react-native to your project\n\n`),
+            );
 
-        process.stdout.write(
-          chalk.green(
-            `\n\nYou can now run 'npx attlr add <componentName>' to add a new component. \n`,
-          ),
-        );
+            execSync("npx expo install lucide-react-native", {
+              stdio: "inherit",
+            });
 
-        //   process.stdout.write(
-        //     chalk.gray(
-        //       "You can also run 'npx attlr add:utils <utilName>' to add a new util function. \n",
-        //     ),
-        //   );
+            process.stdout.write(
+              chalk.green(
+                `\n\nYou can now run 'npx attlr add <componentName>' to add a new component. \n`,
+              ),
+            );
 
-        process.stdout.write(
-          chalk.gray(
-            `Visit the documentation for more information https://github.com/attlr-ui/cli/tree/main#readme`,
-          ),
-        );
+            //   process.stdout.write(
+            //     chalk.gray(
+            //       "You can also run 'npx attlr add:utils <utilName>' to add a new util function. \n",
+            //     ),
+            //   );
+
+            process.stdout.write(
+              chalk.gray(
+                `Visit the documentation for more information https://github.com/attlr-ui/cli/tree/main#readme`,
+              ),
+            );
+          });
       } catch (error) {
         console.error(`Error creating component directory: ${error}`);
       }
