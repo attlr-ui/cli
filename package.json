@@ -12,7 +12,7 @@
     "attlr": "dist/index.js"
   },
   "scripts": {
-    "lint": "tsc",
+    "lint": "eslint . --ext .ts,.tsx --fix",
     "dev": "tsup src/index.ts  --watch --format cjs --out-dir dist",
     "build": "tsup src/index.ts --minify --format cjs --out-dir dist",
     "ci": "npm run lint && npm run build"
@@ -36,7 +36,13 @@
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.21",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "eslint": "^8.57.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.33.2"
   },
   "dependencies": {
     "chalk": "^4.1.2",
