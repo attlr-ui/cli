@@ -5,6 +5,7 @@ import { addComponent } from "./addcomponent";
 import chalk from "chalk";
 
 import { Command } from "commander";
+import { available } from "./available";
 const program = new Command();
 
 program
@@ -51,6 +52,14 @@ program
   .description("Initialize the config file")
   .action(() => {
     doInitialization();
+  });
+
+program
+  .command("list")
+  .aliases(["ls", "l"])
+  .description("List all the available components")
+  .action(() => {
+    available();
   });
 
 program.parse();

@@ -7,7 +7,7 @@
 ## Installation
 
 ```bash
-npm install -g attlr
+npm install -D attlr
 ```
 
 ## Usage
@@ -22,3 +22,4 @@ npx attlr <command>
 - `add` - Add a component to your project
 - `remove` - Remove a component from your project (not implemented yet)
 - `update` - Update components list
+- `list` - List all available components

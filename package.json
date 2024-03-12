@@ -1,6 +1,6 @@
 {
   "name": "@attlr/cli",
-  "version": "0.0.1-alpha-4",
+  "version": "0.0.1",
   "description": "React Native UI Components by Matthew Msingathi (Coded Design)",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -15,8 +15,7 @@
     "lint": "tsc",
     "dev": "tsup src/index.ts  --watch --format cjs --out-dir dist",
     "build": "tsup src/index.ts --minify --format cjs --out-dir dist",
-    "ci": "npm run lint && npm run build",
-    "release": "npm run lint && npm run ci && npx changeset publish"
+    "ci": "npm run lint && npm run build"
   },
   "keywords": [
     "cli",
@@ -34,9 +33,6 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
-    "@types/clui": "^0.3.4",
-    "@types/configstore": "^6.0.2",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.21",
     "tsup": "^8.0.2",

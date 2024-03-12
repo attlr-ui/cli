@@ -3,6 +3,7 @@ export type ConfigFile = {
   utilsDirectory: string;
   componentAlias: string;
   utilsAlias: string;
+  version: string;
 };
 
 export type ComponentList = {
