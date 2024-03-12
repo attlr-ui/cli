@@ -26,6 +26,9 @@ jobs:
         language: ["javascript-typescript"]
 
     steps:
+      - name: Lint
+        run: npm run lint
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
