@@ -14,13 +14,29 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm install --no-frozen-lockfile --force
-      
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: npm run release
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "axolemaranjana4@gmail.com"
+          git config --global user.name "Axole Maranjana"
+
+      - name: Install dependencies
+        run: npm install --no-frozen-lockfile --force && npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Clean Git working directory
+        run: |
+          git add . 
+          git commit -m "chore: release"
+
+      - name: Run npm version prerelease
+        run: npm version patch
+
+      - name: Publish to NPM
+        run: npm publish --access public --tag next
+
         env:
           GITHUB_TOKEN: ${{ vars.A_GITHUB_TOKEN }}
+          GIT_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

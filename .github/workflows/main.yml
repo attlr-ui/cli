@@ -1,12 +1,11 @@
-name: Lint CI
-
+name: Publish to NPM (Pre-release)
 on:
-  push:
-    branches:
-      - "**"
   pull_request:
+    types: [closed]
     branches:
-      - "**"
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   build:
@@ -17,5 +16,29 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm install --no-frozen-lockfile
-      - run: npm run ci
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "axolemaranjana4@gmail.com"
+          git config --global user.name "Axole Maranjana"
+
+      - name: Install dependencies
+        run: npm install --no-frozen-lockfile --force && npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Clean Git working directory
+        run: |
+          git add . 
+          git commit -m "chore: pre-release"
+
+      - name: Run npm version prerelease
+        run: npm version prepatch --preid=alpha
+
+      - name: Publish to NPM
+        run: npm publish --access public --tag alpha
+
+        env:
+          GITHUB_TOKEN: ${{ vars.A_GITHUB_TOKEN }}
+          GIT_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
