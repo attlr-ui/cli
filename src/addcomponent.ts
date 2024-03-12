@@ -11,16 +11,10 @@ import path from "path";
 import chalk from "chalk";
 import https from "node:https";
 import inquirer from "inquirer";
-import { exec } from "child_process";
+import { execSync } from "child_process";
 import { readConfigFile } from "./helpers";
 import { ComponentList, ConfigFile } from "./types";
 
-/**
- * Add the component to the project
- * @param {string} componentName - The name of the component to add
- * @param {boolean} overwrite - Whether to overwrite the component if it already exists
- * @returns {Promise<void>}
- **/
 const addComponent = (componentName: string, overwrite = false) => {
   // 1. Read the config file
   const configFile = readConfigFile() as ConfigFile;
@@ -102,27 +96,25 @@ function downloadComponent(componentName: string, directory: string) {
               if (toInstall.length > 3) {
                 // Install the component dependencies
                 process.stdout.write(
-                  chalk.yellow(
-                    `Installing dependencies for ${componentName}\n`,
+                  chalk.blue(
+                    `Installing dependencies for ${componentName} (${toInstall})\n`,
                   ),
                 );
-                exec(`npm install ${toInstall}`, (error) => {
-                  if (error) {
-                    process.stdout.write(
-                      chalk.red(
-                        `Error: ${error.message}. If the error persist please reach out on GitHub: ${ISSUES_URL}\n`,
-                      ),
-                    );
-                    process.exit(1);
-                  }
 
-                  process.stdout.write(
-                    chalk.green(
-                      `Component ${componentName} downloaded successfully\n`,
-                    ),
-                  );
-                  process.exit(0);
-                });
+                //execSync(`npm install ${toInstall}`, { stdio: "inherit" });
+                // Print to the console the components needs to be installed
+                process.stdout.write(
+                  chalk.blue(
+                    `To install the dependencies run: npx expo install ${toInstall}\n`,
+                  ),
+                );
+
+                process.stdout.write(
+                  chalk.green(
+                    `Component ${componentName} downloaded successfully\n`,
+                  ),
+                );
+                process.exit(0);
               }
               process.stdout.write(
                 chalk.green(
