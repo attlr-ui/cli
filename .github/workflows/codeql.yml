@@ -1,12 +1,12 @@
-name: "CodeQL"
+name: 'CodeQL'
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   pull_request:
-    branches: ["main"]
+    branches: ['main']
   schedule:
-    - cron: "23 0 * * 0"
+    - cron: '23 0 * * 0'
 
 jobs:
   analyze:
@@ -23,12 +23,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["javascript-typescript"]
+        language: ['javascript-typescript']
 
     steps:
-      - name: Lint
-        run: npm run lint
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -43,4 +40,4 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:${{matrix.language}}"
+          category: '/language:${{matrix.language}}'

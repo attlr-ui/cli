@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
+          registry-url: https://registry.npmjs.org/
 
       - name: Configure Git identity
         run: |
@@ -39,3 +40,4 @@ jobs:
           GITHUB_TOKEN: ${{ vars.A_GITHUB_TOKEN }}
           GIT_TOKEN: ${{vars.GITHUBB_TOKEN}}
           NPM_TOKEN: ${{ vars.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
