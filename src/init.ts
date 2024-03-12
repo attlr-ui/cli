@@ -8,7 +8,7 @@ import { CONFIG_FILE_NAME, checkIfConfigExist } from './helpers'
 import { VERSION } from './urls'
 import { execSync } from 'child_process'
 
-function doInitialization (): void {
+function doInitialization(): void {
   checkIfConfigExist()
 
   inquirer
@@ -18,25 +18,25 @@ function doInitialization (): void {
         default: 'components/',
         name: 'directory',
         message:
-          'Enter your components directory, or press enter to use the default:'
+          'Enter your components directory, or press enter to use the default:',
       },
       {
         type: 'input',
         name: 'utilsDirectory',
         message:
           'Enter your utils directory, or press enter to use the default:',
-        default: 'utils/'
+        default: 'utils/',
       },
       {
         type: 'input',
         name: 'componentAlias',
-        message: 'Enter your component alias:'
+        message: 'Enter your component alias:',
       },
       {
         type: 'input',
         name: 'utilsAlias',
-        message: 'Enter your utils alias:'
-      }
+        message: 'Enter your utils alias:',
+      },
     ])
     .then((answers: Record<string, string>) => {
       const { directory, utilsDirectory, componentAlias, utilsAlias } = answers
@@ -63,24 +63,23 @@ function doInitialization (): void {
             utilsDirectory,
             componentAlias,
             utilsAlias,
-            version: VERSION
+            version: VERSION,
           })
         )
 
         process.stdout.write(
           chalk.green(
-            "Config file created successfully. \n\n You can now run 'npx attlr add <componentName>' to add a new component. \n"
+            `Config file created successfully. \n\n You can now run 'npx attlr add <componentName>' to add a new component. \n`
           )
         )
-
         inquirer
           .prompt([
             {
               type: 'confirm',
               name: 'installLucide',
               message:
-                'Do you want to install lucide-react-native to your project now?'
-            }
+                'Do you want to install lucide-react-native to your project now?',
+            },
           ])
           .then((answers) => {
             if (!answers.installLucide) {
@@ -97,7 +96,7 @@ function doInitialization (): void {
             )
 
             execSync('npx expo install lucide-react-native', {
-              stdio: 'inherit'
+              stdio: 'inherit',
             })
 
             process.stdout.write(
